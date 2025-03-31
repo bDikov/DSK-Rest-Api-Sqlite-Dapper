@@ -1,6 +1,6 @@
 ﻿using DSK.Infrastructure.Database.Enums;
 using DSK.Infrastructure.Database.Models;
-using DSK.Infrastructure.Tests.Utilities;
+using DSK.Infrastructure.Tests.DbTests.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;

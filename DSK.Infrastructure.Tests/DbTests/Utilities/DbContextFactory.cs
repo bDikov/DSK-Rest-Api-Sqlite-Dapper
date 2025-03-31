@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace DSK.Infrastructure.Tests.Utilities;
+namespace DSK.Infrastructure.Tests.DbTests.Utilities;
 
 public class DbContextFactory : IDisposable
 {

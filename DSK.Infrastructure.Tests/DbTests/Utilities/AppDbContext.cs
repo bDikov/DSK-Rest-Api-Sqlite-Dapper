@@ -1,7 +1,7 @@
 ﻿using DSK.Infrastructure.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DSK.Infrastructure.Tests.Utilities;
+namespace DSK.Infrastructure.Tests.DbTests.Utilities;
 
 public class AppDbContext : DbContext
 {
@@ -14,7 +14,6 @@ public class AppDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<CreditDbModel>()
@@ -22,7 +21,4 @@ public class AppDbContext : DbContext
        .WithOne()
        .HasForeignKey(i => i.CreditId);
     }
-
 }
-
-

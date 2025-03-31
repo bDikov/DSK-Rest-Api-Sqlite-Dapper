@@ -6,4 +6,6 @@ public interface IDbHelper
 {
     Task<SqliteConnection> GetInMemoryDbConnectionAsync(CancellationToken cancellationToken);
 
+    Task<SqliteConnection> GetPhysicalConnectionAsync(CancellationToken cancellationToken);
+
 }

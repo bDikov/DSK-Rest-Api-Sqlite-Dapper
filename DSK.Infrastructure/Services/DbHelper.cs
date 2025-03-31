@@ -30,7 +30,7 @@ public class DbHelper : IDbHelper
         return _inMemoryDbConnection;
     }
 
-    private async Task<SqliteConnection> GetPhysicalConnectionAsync(CancellationToken cancellationToken)
+    public async Task<SqliteConnection> GetPhysicalConnectionAsync(CancellationToken cancellationToken)
     {
         var connection = new SqliteConnection("Data Source=" + _connectionString + ";Mode=ReadWrite");
         await connection.OpenAsync(cancellationToken);

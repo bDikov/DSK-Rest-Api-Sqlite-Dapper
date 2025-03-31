@@ -56,14 +56,6 @@ public class CreditRepository : ICreditRepository
         return _mapper.Map<List<Credit>>(creditInvoices.Values.ToList());
     }
 
-    //Ендпойнт , който връща информация каква е
-    //сумата на кредитите със статус Paid,
-    //сумата на кредитите със статус AwaitingPayment,
-    //какъв процент е Paid от total paid
-    //какъв процент е AwaitingPayment от total paid
-
-    //тези суми от сумите на всички кредити със статус Paid и AwaitingPayment
-
     public async Task<CreditSummary> GetCreditSummaryAsync(CancellationToken cancellationToken)
     {
 

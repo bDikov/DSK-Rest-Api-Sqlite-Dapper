@@ -15,8 +15,4 @@
     <ProjectReference Include="..\DSK.Domain\DSK.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-
 </Project>

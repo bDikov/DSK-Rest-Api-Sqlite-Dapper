@@ -58,17 +58,16 @@ public class CreditRepository : ICreditRepository
 
     public async Task<CreditSummary> GetCreditSummaryAsync(CancellationToken cancellationToken)
     {
-
         using var connection = await _dbHelper.GetInMemoryDbConnectionAsync(cancellationToken);
 
-        var result = connection.QuerySingleOrDefault<dynamic>(
-            @"SELECT 
-				    SUM(CASE WHEN Status = @Paid THEN Amount ELSE 0 END) AS TotalPaid,
-				    SUM(CASE WHEN Status = @AwaitingPayment THEN Amount ELSE 0 END) AS TotalAwaitingPayment
-			    FROM Credits", new { Paid = (int)CreditStatusType.Paid, AwaitingPayment = (int)CreditStatusType.AwaitingPayment });
+        var result = await connection.QuerySingleOrDefaultAsync<dynamic>(
+            @"SELECT   
+            SUM(CASE WHEN Status = @Paid THEN Amount ELSE 0 END) AS TotalPaid,  
+            SUM(CASE WHEN Status = @AwaitingPayment THEN Amount ELSE 0 END) AS TotalAwaitingPayment  
+        FROM Credits", new { Paid = (int)CreditStatusType.Paid, AwaitingPayment = (int)CreditStatusType.AwaitingPayment });
 
-        var totalPaid = (decimal)result.TotalPaid;
-        var totalAwaitingPayment = (decimal)result.TotalAwaitingPayment;
+        var totalPaid = result?.TotalPaid != null ? (decimal)result.TotalPaid : 0m;
+        var totalAwaitingPayment = result?.TotalAwaitingPayment != null ? (decimal)result.TotalAwaitingPayment : 0m;
         var totalSum = totalPaid + totalAwaitingPayment;
 
         var paidPercentage = totalSum > 0 ? Math.Round((totalPaid / totalSum) * 100, 2) : 0;
@@ -78,12 +77,10 @@ public class CreditRepository : ICreditRepository
         {
             TotalPaidSum = totalPaid,
             FullAwaitingPaymentSum = totalAwaitingPayment,
-            TotalPaidSumPercentage = Math.Round((totalPaid / totalSum) * 100, 2),
-            TotalAwaitingPaymentPercentage = Math.Round((totalAwaitingPayment / totalSum) * 100, 2),
+            TotalPaidSumPercentage = paidPercentage,
+            TotalAwaitingPaymentPercentage = awaitingPaymentPercentage,
             FullAwaitingPaymentSumPercentage = totalSum,
-
         };
-
 
         return output;
     }
